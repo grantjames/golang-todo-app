@@ -1,0 +1,22 @@
+POST http://localhost:5000/players/Grant HTTP/1.1
+
+###
+
+POST http://localhost:5000/players/Jenna HTTP/1.1
+
+###
+
+GET http://localhost:5000/players/Grant HTTP/1.1
+
+
+###
+
+GET http://localhost:5000/league
+
+
+# POST http://localhost:5000/players/Grant HTTP/1.1
+# content-type: application/json
+# {
+#     "name": "sample",
+#     "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+# }
