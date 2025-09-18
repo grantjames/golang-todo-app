@@ -54,6 +54,11 @@ func (t *Todo) Updated() time.Time {
 	return t.updated
 }
 
+func (t *Todo) IsOverdue() bool {
+	today := time.Now().Truncate(24 * time.Hour)
+	return t.due != nil && t.due.Before(today) && t.status != Completed
+}
+
 func (t *Todo) String() string {
 	due := "No due date set"
 	if t.due != nil {

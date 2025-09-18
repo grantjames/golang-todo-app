@@ -1,0 +1,4 @@
+time=2025-09-17T19:08:25.610+01:00 level=INFO msg="Application started"
+time=2025-09-17T19:08:25.611+01:00 level=WARN msg="Logging level" Level=0
+time=2025-09-17T19:08:39.201+01:00 level=INFO msg="Application started"
+time=2025-09-17T19:08:39.201+01:00 level=WARN msg="Logging level" Level=0

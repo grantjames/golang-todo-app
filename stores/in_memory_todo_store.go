@@ -46,6 +46,22 @@ func (i *InMemoryTodoStore) GetTodosByStatus(status types.Status) map[int]types.
 	return results
 }
 
+func (i *InMemoryTodoStore) GetOverdueTodos() map[int]types.Todo {
+	results := map[int]types.Todo{}
+	for key, t := range i.store {
+		if t.IsOverdue() {
+			results[key] = t
+		}
+	}
+	return results
+}
+
 func (i *InMemoryTodoStore) GetAllTodos() map[int]types.Todo {
-	return i.store
+	results := map[int]types.Todo{}
+	for key, t := range i.store {
+		if t.Status() != types.Completed {
+			results[key] = t
+		}
+	}
+	return results
 }

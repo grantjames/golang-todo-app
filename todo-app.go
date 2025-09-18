@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
+	"log/slog"
 	"os"
 	"strconv"
 	"strings"
@@ -12,20 +14,41 @@ import (
 	"grantjames.github.io/todo-app/types"
 )
 
-var store = stores.NewInMemoryTodoStore()
+var store *stores.InMemoryTodoStore
+var logger *slog.Logger
+
+func init() {
+	var lFlag = flag.Int("l", 0, "Specify the logging level. DEBUG, INFO, WARN, ERROR")
+	flag.Parse()
+
+	f, err := os.OpenFile("app.log",
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	opts := &slog.HandlerOptions{
+		Level: slog.Level(*lFlag),
+	}
+
+	logger = slog.New(slog.NewTextHandler(f, opts))
+
+	store = stores.NewInMemoryTodoStore()
+}
 
 func main() {
-	time1, _ := time.Parse(time.DateOnly, "2025-10-01")
-	store.AddTodo(types.NewTodo("First todo", &time1))
-	store.AddTodo(types.NewTodo("Second todo", nil))
+	logger.Debug("Application started")
 
 	for {
 		greeting := []string{
 			"What do you want to do?",
 			"1. Show todos",
-			"2. Add a new todo",
-			"3. Update a todo status",
-			"4. Quit",
+			"2. Show archived/completed todos",
+			"3. Show overdue todos",
+			"4. Add a new todo",
+			"5. Update a todo status",
+			"6. Quit",
 		}
 
 		for _, t := range greeting {
@@ -40,17 +63,29 @@ func main() {
 			continue
 		}
 
+		logger.Debug("Main menu option chosen", "option", input)
+
 		switch input {
 		case "1":
 			fmt.Println("*** Your todos are ***")
-			showAllTodos()
+			showTodos(store.GetAllTodos())
 			fmt.Println("Press enter to continue...")
 			fmt.Scanln()
 		case "2":
-			addNewTodo()
+			fmt.Println("*** Your archived/completed todos are ***")
+			showTodos(store.GetTodosByStatus(types.Completed))
+			fmt.Println("Press enter to continue...")
+			fmt.Scanln()
 		case "3":
-			UpdateTodo()
+			fmt.Println("*** Your overdue todos are ***")
+			showTodos(store.GetOverdueTodos())
+			fmt.Println("Press enter to continue...")
+			fmt.Scanln()
 		case "4":
+			addNewTodo()
+		case "5":
+			UpdateTodo()
+		case "6":
 			fmt.Println("So sad to see you... go.")
 			os.Exit(0)
 		default:
@@ -60,8 +95,10 @@ func main() {
 	}
 }
 
-func showAllTodos() {
-	for index, t := range store.GetAllTodos() {
+func showTodos(todos map[int]types.Todo) {
+	logger.Debug("Method called", "method", "showTodos(todos map[int]types.Todo)")
+
+	for index, t := range todos {
 		fmt.Printf("%d: ", index)
 		fmt.Println(t.String())
 	}
@@ -115,7 +152,7 @@ func UpdateTodo() {
 	var id int
 	var err error
 
-	showAllTodos()
+	showTodos(store.GetAllTodos())
 	for {
 		fmt.Print("State the ID of the todo you wish to update: ")
 		input, _ = scanner.ReadString('\n')
