@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -13,12 +12,12 @@ import (
 )
 
 type TodoStore interface {
-	GetTodo(id int) (types.Todo, error)
-	AddTodo(todo types.Todo)
-	UpdateTodoStatus(id int, status types.Status) error
-	GetTodosByStatus(status types.Status) map[int]types.Todo
-	GetOverdueTodos() map[int]types.Todo
-	GetAllTodos() map[int]types.Todo
+	GetTodo(id string) (types.Todo, error)
+	AddTodo(todo types.Todo) (string, error)
+	UpdateTodoStatus(id string, status types.Status) error
+	GetTodosByStatus(status types.Status) map[string]types.Todo
+	GetOverdueTodos() map[string]types.Todo
+	GetAllTodos() map[string]types.Todo
 }
 
 type TodoApp struct {
@@ -128,7 +127,7 @@ func (t *TodoApp) readDate() *time.Time {
 func (t *TodoApp) updateTodo() {
 	scanner := bufio.NewReader(os.Stdin)
 	var input string
-	var id int
+	var id string
 	var err error
 
 	t.showTodos(t.store.GetAllTodos())
@@ -136,12 +135,7 @@ func (t *TodoApp) updateTodo() {
 		fmt.Print("State the ID of the todo you wish to update: ")
 		input, _ = scanner.ReadString('\n')
 		input = strings.TrimSpace(input)
-
-		id, err = strconv.Atoi(input)
-		if err != nil {
-			fmt.Println("ID should be an integer")
-			continue
-		}
+		id = input
 
 		// Check the todo exists
 		_, err = t.store.GetTodo(id)
@@ -174,11 +168,11 @@ func (t *TodoApp) updateTodo() {
 	}
 }
 
-func (t *TodoApp) showTodos(todos map[int]types.Todo) {
+func (t *TodoApp) showTodos(todos map[string]types.Todo) {
 	t.logger.Debug("Method called", "method", "showTodos(todos map[int]types.Todo)")
 
-	for index, t := range todos {
-		fmt.Printf("%d: ", index)
+	for key, t := range todos {
+		fmt.Printf("%s: ", key)
 		fmt.Println(t.String())
 	}
 }

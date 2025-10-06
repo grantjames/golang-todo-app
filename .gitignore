@@ -32,3 +32,5 @@ go.work.sum
 # .vscode/
 
 app.log
+todo-app
+.DS_Store

@@ -14,59 +14,59 @@ const (
 )
 
 type Todo struct {
-	description string
-	status      Status
-	due         *time.Time
-	updated     time.Time
+	Description string     `json:"description"`
+	Status      Status     `json:"status"`
+	Due         *time.Time `json:"due"`
+	Updated     time.Time  `json:"updated"`
 }
 
 func NewTodo(desc string, due *time.Time) Todo {
 	return Todo{
-		description: desc,
-		due:         due,
-		status:      NotStarted,
-		updated:     time.Now(),
+		Description: desc,
+		Due:         due,
+		Status:      NotStarted,
+		Updated:     time.Now(),
 	}
 }
 
 func (t *Todo) SetStatus(s Status) {
-	t.status = s
-	t.updated = time.Now()
+	t.Status = s
+	t.Updated = time.Now()
 }
 
 //
 // Getters to expose todo internals
 //
 
-func (t *Todo) Description() string {
-	return t.description
-}
+// func (t *Todo) Description() string {
+// 	return t.Description
+// }
 
-func (t *Todo) Due() *time.Time {
-	return t.due
-}
+// func (t *Todo) Due() *time.Time {
+// 	return t.Due
+// }
 
-func (t *Todo) Status() Status {
-	return t.status
-}
+// func (t *Todo) Status() Status {
+// 	return t.Status
+// }
 
-func (t *Todo) Updated() time.Time {
-	return t.updated
-}
+// func (t *Todo) Updated() time.Time {
+// 	return t.Updated
+// }
 
 func (t *Todo) IsOverdue() bool {
 	today := time.Now().Truncate(24 * time.Hour)
-	return t.due != nil && t.due.Before(today) && t.status != Completed
+	return t.Due != nil && t.Due.Before(today) && t.Status != Completed
 }
 
 func (t *Todo) String() string {
 	due := "No due date set"
-	if t.due != nil {
-		due = t.due.Format("02/01/2006")
+	if t.Due != nil {
+		due = t.Due.Format("02/01/2006")
 	}
 	return fmt.Sprintf(`%s
   Status: %s
   Due: %s
   Updated: %s
-	`, t.description, t.status, due, t.updated.Format("02/01/2006 at 15:04:05"))
+	`, t.Description, t.Status, due, t.Updated.Format("02/01/2006 at 15:04:05"))
 }

@@ -26,7 +26,7 @@ func main() {
 	logger := slog.New(slog.NewTextHandler(f, opts))
 
 	app := TodoApp{
-		stores.NewInMemoryTodoStore(logger),
+		stores.NewInMemoryTodoStore(),
 		logger,
 	}
 

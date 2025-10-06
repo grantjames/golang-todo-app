@@ -9,15 +9,15 @@ func TestNewTodo(t *testing.T) {
 	t.Run("Creates a new todo with required properties", func(t *testing.T) {
 		now := time.Now()
 		want := Todo{
-			description: "Test todo",
-			status:      NotStarted,
-			due:         &now,
-			updated:     time.Now(),
+			Description: "Test todo",
+			Status:      NotStarted,
+			Due:         &now,
+			Updated:     time.Now(),
 		}
 
-		got := NewTodo(want.description, want.due)
+		got := NewTodo(want.Description, want.Due)
 
-		if want.description != got.description || want.status != got.status || want.due != got.due {
+		if want.Description != got.Description || want.Status != got.Status || want.Due != got.Due {
 			t.Errorf("got %v, want %v", got, want)
 		}
 	})
@@ -26,16 +26,16 @@ func TestNewTodo(t *testing.T) {
 func TestTodoSetters(t *testing.T) {
 	t.Run("SetStatus updates the status and updated timestamp", func(t *testing.T) {
 		todo := NewTodo("Test todo", nil)
-		initialUpdated := todo.updated
+		initialUpdated := todo.Updated
 
 		time.Sleep(10 * time.Millisecond)
 		newStatus := Started
 		todo.SetStatus(newStatus)
 
-		if todo.status != newStatus {
-			t.Errorf("got status %v, want %v", todo.status, newStatus)
+		if todo.Status != newStatus {
+			t.Errorf("got status %v, want %v", todo.Status, newStatus)
 		}
-		if !todo.updated.After(initialUpdated) {
+		if !todo.Updated.After(initialUpdated) {
 			t.Errorf("updated timestamp was not updated")
 		}
 	})
