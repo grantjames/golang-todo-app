@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 
+	todoapp "grantjames.github.io/todo-app"
 	"grantjames.github.io/todo-app/stores"
 )
 
@@ -25,10 +26,7 @@ func main() {
 
 	logger := slog.New(slog.NewTextHandler(f, opts))
 
-	app := TodoApp{
-		stores.NewInMemoryTodoStore(),
-		logger,
-	}
+	app := todoapp.NewCLI(stores.NewInMemoryTodoStore(), logger)
 
 	app.Start()
 }

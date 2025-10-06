@@ -1,4 +1,10 @@
-GET http://localhost:5000/v1/todos
+GET http://localhost:5000/v1/todos/30c9f8e7-b13e-4595-b144-6b734f5ee17b
 
 ###
 
+POST http://localhost:5000/v1/todos/
+Content-Type: application/json
+
+{
+  "description": "New Todo"
+}
