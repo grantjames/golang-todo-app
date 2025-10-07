@@ -11,21 +11,12 @@ import (
 	"grantjames.github.io/todo-app/types"
 )
 
-type CLITodoStore interface {
-	GetTodo(id string) (types.Todo, error)
-	AddTodo(todo types.Todo) (string, error)
-	UpdateTodoStatus(id string, status types.Status) error
-	GetTodosByStatus(status types.Status) map[string]types.Todo
-	GetOverdueTodos() map[string]types.Todo
-	GetAllTodos() map[string]types.Todo
-}
-
 type CLI struct {
-	store  CLITodoStore
+	store  types.TodoStore
 	logger *slog.Logger
 }
 
-func NewCLI(store CLITodoStore, logger *slog.Logger) *CLI {
+func NewCLI(store types.TodoStore, logger *slog.Logger) *CLI {
 	return &CLI{
 		store:  store,
 		logger: logger,

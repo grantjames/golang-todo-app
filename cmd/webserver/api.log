@@ -1,0 +1,2 @@
+time=2025-10-07T15:48:32.749+01:00 level=INFO msg="HTTP Request:" uuid=21b6a1f7-e15e-4416-a823-444e3ef5ae08 method=GET path=/v1/todos/98262123-4031-4076-9775-fdf2b68cab8d
+time=2025-10-07T15:48:56.415+01:00 level=INFO msg="HTTP Request:" uuid=2ff18c0c-f4fb-42bb-82a1-4170dec06092 method=POST path=/v1/todos/
