@@ -1,7 +1,13 @@
-time=2025-10-08T11:13:02.500+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=d7f32940-b989-45b5-9fff-f832e327409b
-time=2025-10-08T11:13:02.501+01:00 level=INFO msg="Endpoint called" trace_id=d7f32940-b989-45b5-9fff-f832e327409b endpoint=GetTodo todo_id=b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=""
-time=2025-10-08T11:13:15.554+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=ca9a4a88-8e75-4836-987b-f12260e09d0f
-time=2025-10-08T11:13:15.554+01:00 level=INFO msg="Endpoint called" trace_id=ca9a4a88-8e75-4836-987b-f12260e09d0f endpoint=GetTodo todo_id=b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=""
-time=2025-10-08T11:21:54.228+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=9378c46a-0321-4e31-b0af-787700d15797
-time=2025-10-08T11:21:54.228+01:00 level=INFO msg="Endpoint called" endpoint=GetTodo todo_id=b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=9378c46a-0321-4e31-b0af-787700d15797
-time=2025-10-08T11:21:54.228+01:00 level=INFO msg="InMemoryTodoStore: GetTodo called" todo_id=b1fa6c51-b475-4d46-9af6-fefc795d619d trace_id=9378c46a-0321-4e31-b0af-787700d15797
+time=2025-10-08T11:58:39.772+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos trace_id=6d8d3515-065e-428c-9b63-e3a23ae22727
+time=2025-10-08T11:58:39.773+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/ trace_id=2dea922c-6c66-4701-b07b-4d850a70c012
+time=2025-10-08T11:58:39.773+01:00 level=INFO msg="Endpoint called" endpoint=GetAllTodos trace_id=2dea922c-6c66-4701-b07b-4d850a70c012
+time=2025-10-08T11:58:39.773+01:00 level=INFO msg="InMemoryTodoStore: GetAllTodos called" trace_id=2dea922c-6c66-4701-b07b-4d850a70c012
+time=2025-10-08T12:00:36.900+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/ trace_id=76a6d3bc-a802-4d4a-b78a-a1f85ee5123c
+time=2025-10-08T12:00:36.900+01:00 level=INFO msg="Endpoint called" endpoint=GetAllTodos trace_id=76a6d3bc-a802-4d4a-b78a-a1f85ee5123c
+time=2025-10-08T12:00:36.900+01:00 level=INFO msg="InMemoryTodoStore: GetAllTodos called" trace_id=76a6d3bc-a802-4d4a-b78a-a1f85ee5123c
+time=2025-10-08T12:00:41.996+01:00 level=INFO msg="HTTP Request:" method=POST path=/v1/todos/ trace_id=cda1aca3-f0e8-44c2-9353-a54652e4225c
+time=2025-10-08T12:00:41.996+01:00 level=INFO msg="Endpoint called" endpoint=AddTodo trace_id=cda1aca3-f0e8-44c2-9353-a54652e4225c
+time=2025-10-08T12:00:41.997+01:00 level=INFO msg="InMemoryTodoStore: AddTodo called" trace_id=cda1aca3-f0e8-44c2-9353-a54652e4225c
+time=2025-10-08T12:00:42.970+01:00 level=INFO msg="HTTP Request:" method=GET path=/v1/todos/ trace_id=43d199b7-f64b-4d14-bbbe-8ccea3e49ad2
+time=2025-10-08T12:00:42.970+01:00 level=INFO msg="Endpoint called" endpoint=GetAllTodos trace_id=43d199b7-f64b-4d14-bbbe-8ccea3e49ad2
+time=2025-10-08T12:00:42.970+01:00 level=INFO msg="InMemoryTodoStore: GetAllTodos called" trace_id=43d199b7-f64b-4d14-bbbe-8ccea3e49ad2

@@ -46,6 +46,21 @@ func (s *TodoAPIServer) todosHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
+		if id == "" {
+			status := r.URL.Query().Get("status")
+			if status != "" {
+				s.GetTodosByStatus(w, r, types.Status(status))
+				return
+			}
+
+			if r.URL.Query().Has("overdue") {
+				s.GetOverdueTodos(w, r)
+				return
+			}
+
+			s.GetAllTodos(w, r)
+			return
+		}
 		s.GetTodo(w, r, id)
 	case http.MethodPost:
 		s.AddTodo(w, r)
