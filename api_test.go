@@ -2,6 +2,7 @@ package todoapp
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -172,7 +173,7 @@ type StubTodoStore struct {
 	lock         sync.RWMutex
 }
 
-func (s *StubTodoStore) AddTodo(todo types.Todo) (string, error) {
+func (s *StubTodoStore) AddTodo(ctx context.Context, todo types.Todo) (string, error) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -180,7 +181,7 @@ func (s *StubTodoStore) AddTodo(todo types.Todo) (string, error) {
 	return "stub-id", nil
 }
 
-func (s *StubTodoStore) GetTodo(id string) (types.Todo, error) {
+func (s *StubTodoStore) GetTodo(ctx context.Context, id string) (types.Todo, error) {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
@@ -191,7 +192,7 @@ func (s *StubTodoStore) GetTodo(id string) (types.Todo, error) {
 	}
 }
 
-func (s *StubTodoStore) UpdateTodoStatus(id string, status types.Status) error {
+func (s *StubTodoStore) UpdateTodoStatus(ctx context.Context, id string, status types.Status) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -202,7 +203,7 @@ func (s *StubTodoStore) UpdateTodoStatus(id string, status types.Status) error {
 	return nil
 }
 
-func (s *StubTodoStore) GetTodosByStatus(status types.Status) map[string]types.Todo {
+func (s *StubTodoStore) GetTodosByStatus(ctx context.Context, status types.Status) map[string]types.Todo {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
@@ -210,7 +211,7 @@ func (s *StubTodoStore) GetTodosByStatus(status types.Status) map[string]types.T
 	return map[string]types.Todo{}
 }
 
-func (s *StubTodoStore) GetOverdueTodos() map[string]types.Todo {
+func (s *StubTodoStore) GetOverdueTodos(ctx context.Context) map[string]types.Todo {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
@@ -218,7 +219,7 @@ func (s *StubTodoStore) GetOverdueTodos() map[string]types.Todo {
 	return map[string]types.Todo{}
 }
 
-func (s *StubTodoStore) GetAllTodos() map[string]types.Todo {
+func (s *StubTodoStore) GetAllTodos(ctx context.Context) map[string]types.Todo {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 

@@ -4,9 +4,6 @@ import (
 	"flag"
 	"log/slog"
 	"os"
-
-	todoapp "grantjames.github.io/todo-app"
-	"grantjames.github.io/todo-app/stores"
 )
 
 func main() {
@@ -25,8 +22,10 @@ func main() {
 	}
 
 	logger := slog.New(slog.NewTextHandler(f, opts))
+	slog.SetDefault(logger)
 
-	app := todoapp.NewCLI(stores.NewInMemoryTodoStore(), logger)
+	//app := todoapp.NewCLI(stores.NewInMemoryTodoStore())
+	//app := todoapp.NewCLI("http://localhost:5000/v1")
 
-	app.Start()
+	//app.Start()
 }

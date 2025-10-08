@@ -1,7 +1,9 @@
 package stores
 
 import (
+	"context"
 	"fmt"
+	"log/slog"
 	"sync"
 
 	"github.com/google/uuid"
@@ -20,8 +22,8 @@ type InMemoryTodoStore struct {
 	lock  sync.RWMutex
 }
 
-func (i *InMemoryTodoStore) GetTodo(id string) (types.Todo, error) {
-	//i.logger.Debug("Retrieving todo from in memory store")
+func (i *InMemoryTodoStore) GetTodo(ctx context.Context, id string) (types.Todo, error) {
+	slog.InfoContext(ctx, "InMemoryTodoStore: GetTodo called", "todo_id", id)
 
 	i.lock.RLock()
 	defer i.lock.RUnlock()
@@ -33,7 +35,9 @@ func (i *InMemoryTodoStore) GetTodo(id string) (types.Todo, error) {
 	return todo, nil
 }
 
-func (i *InMemoryTodoStore) AddTodo(todo types.Todo) (string, error) {
+func (i *InMemoryTodoStore) AddTodo(ctx context.Context, todo types.Todo) (string, error) {
+	slog.InfoContext(ctx, "InMemoryTodoStore: AddTodo called")
+
 	i.lock.Lock()
 	defer i.lock.Unlock()
 
@@ -44,7 +48,9 @@ func (i *InMemoryTodoStore) AddTodo(todo types.Todo) (string, error) {
 	return id, nil
 }
 
-func (i *InMemoryTodoStore) UpdateTodoStatus(id string, status types.Status) error {
+func (i *InMemoryTodoStore) UpdateTodoStatus(ctx context.Context, id string, status types.Status) error {
+	slog.InfoContext(ctx, "InMemoryTodoStore: UpdateTodoStatus called", "todo_id", id, "status", status)
+
 	i.lock.Lock()
 	defer i.lock.Unlock()
 
@@ -57,7 +63,9 @@ func (i *InMemoryTodoStore) UpdateTodoStatus(id string, status types.Status) err
 	return nil
 }
 
-func (i *InMemoryTodoStore) GetTodosByStatus(status types.Status) map[string]types.Todo {
+func (i *InMemoryTodoStore) GetTodosByStatus(ctx context.Context, status types.Status) map[string]types.Todo {
+	slog.InfoContext(ctx, "InMemoryTodoStore: GetTodosByStatus called", "status", status)
+
 	i.lock.RLock()
 	defer i.lock.RUnlock()
 
@@ -70,7 +78,9 @@ func (i *InMemoryTodoStore) GetTodosByStatus(status types.Status) map[string]typ
 	return results
 }
 
-func (i *InMemoryTodoStore) GetOverdueTodos() map[string]types.Todo {
+func (i *InMemoryTodoStore) GetOverdueTodos(ctx context.Context) map[string]types.Todo {
+	slog.InfoContext(ctx, "InMemoryTodoStore: GetOverdueTodos called")
+
 	i.lock.RLock()
 	defer i.lock.RUnlock()
 
@@ -83,7 +93,9 @@ func (i *InMemoryTodoStore) GetOverdueTodos() map[string]types.Todo {
 	return results
 }
 
-func (i *InMemoryTodoStore) GetAllTodos() map[string]types.Todo {
+func (i *InMemoryTodoStore) GetAllTodos(ctx context.Context) map[string]types.Todo {
+	slog.InfoContext(ctx, "InMemoryTodoStore: GetAllTodos called")
+
 	i.lock.RLock()
 	defer i.lock.RUnlock()
 
