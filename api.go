@@ -89,7 +89,8 @@ func (s *TodoAPIServer) AddTodo(w http.ResponseWriter, r *http.Request) {
 	var todo types.Todo
 	err := json.NewDecoder(r.Body).Decode(&todo)
 	if err != nil {
-		http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+		slog.ErrorContext(r.Context(), "Failed to decode request body", slog.String("error", err.Error()))
+		http.Error(w, "Failed to read request body", http.StatusBadRequest)
 		return
 	}
 

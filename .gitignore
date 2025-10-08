@@ -31,6 +31,7 @@ go.work.sum
 # .idea/
 # .vscode/
 
-app.log
+*.log
 todo-app
 .DS_Store
+db.json

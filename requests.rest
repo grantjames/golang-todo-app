@@ -1,4 +1,8 @@
-GET http://localhost:5000/v1/todos/b1fa6c51-b475-4d46-9af6-fefc795d619d
+GET http://localhost:5000/v1/todos/3e6ee309-126b-4112-b7b5-9d770c8a982b
+
+###
+
+GET http://localhost:5000/v1/todos/
 
 ###
 
