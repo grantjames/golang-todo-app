@@ -18,7 +18,6 @@ func NewTodoAPIClient(apiBaseUrl string) *TodoAPIClient {
 }
 
 type TodoAPIClient struct {
-	userId     string
 	apiBaseUrl string
 	client     *http.Client
 }
