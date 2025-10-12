@@ -26,7 +26,7 @@ func main() {
 	logger := slog.New(slog.NewTextHandler(f, opts))
 	slog.SetDefault(logger)
 
-	app := todoapp.NewCLI(*todoapp.NewTodoAPIClient("http://localhost:5000/v1"))
+	app := todoapp.NewCLI(*todoapp.NewTodoAPIClient("http://localhost:5000/api"))
 
 	app.Start()
 }

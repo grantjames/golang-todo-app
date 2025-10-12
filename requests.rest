@@ -1,14 +1,26 @@
-GET http://localhost:5000/v1/todos/3e6ee309-126b-4112-b7b5-9d770c8a982b
+### Request to get one of Grant's todos
+
+GET http://localhost:5000/api/todos/3e6ee309-126b-4112-b7b5-9d770c8a982b
 
 ###
 
-GET http://localhost:5000/v1/todos/
+GET http://localhost:5000/api/todos/
+
 
 ###
 
-POST http://localhost:5000/v1/todos/
+POST http://localhost:5000/api/todos/
 Content-Type: application/json
 
 {
   "description": "New Todo"
+}
+
+###
+
+POST http://localhost:5000/api/todos/
+Content-Type: application/json
+
+{
+  "description": "New Todo for Jenna"
 }

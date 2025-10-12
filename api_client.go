@@ -18,6 +18,7 @@ func NewTodoAPIClient(apiBaseUrl string) *TodoAPIClient {
 }
 
 type TodoAPIClient struct {
+	userId     string
 	apiBaseUrl string
 	client     *http.Client
 }
@@ -58,6 +59,8 @@ func (c *TodoAPIClient) AddTodo(todo types.Todo) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	req.Header.Set("X-User-Id", c.userId)
 	req.Header.Set("Content-Type", "application/json")
 	req.Body = io.NopCloser(strings.NewReader(string(todoData)))
 
@@ -97,6 +100,8 @@ func (c *TodoAPIClient) UpdateTodoStatus(id string, status types.Status) error {
 	if err != nil {
 		return err
 	}
+
+	req.Header.Set("X-User-Id", c.userId)
 	req.Header.Set("Content-Type", "application/json")
 	req.Body = io.NopCloser(strings.NewReader(string(data)))
 
@@ -106,7 +111,7 @@ func (c *TodoAPIClient) UpdateTodoStatus(id string, status types.Status) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusAccepted {
 		return fmt.Errorf("failed to update todo status: status code %d", resp.StatusCode)
 	}
 
@@ -115,7 +120,9 @@ func (c *TodoAPIClient) UpdateTodoStatus(id string, status types.Status) error {
 
 func (c *TodoAPIClient) GetTodosByStatus(status types.Status) (map[string]types.Todo, error) {
 	url := fmt.Sprintf("%s/todos/?status=%s", c.apiBaseUrl, status)
+
 	req, err := http.NewRequest(http.MethodGet, url, nil)
+	req.Header.Set("X-User-Id", c.userId)
 	if err != nil {
 		return nil, err
 	}
@@ -141,6 +148,7 @@ func (c *TodoAPIClient) GetTodosByStatus(status types.Status) (map[string]types.
 func (c *TodoAPIClient) GetOverdueTodos() (map[string]types.Todo, error) {
 	url := fmt.Sprintf("%s/todos/?overdue", c.apiBaseUrl)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
+	req.Header.Set("X-User-Id", c.userId)
 	if err != nil {
 		return nil, err
 	}
@@ -165,6 +173,7 @@ func (c *TodoAPIClient) GetOverdueTodos() (map[string]types.Todo, error) {
 func (c *TodoAPIClient) GetAllTodos() (map[string]types.Todo, error) {
 	url := fmt.Sprintf("%s/todos/", c.apiBaseUrl)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
+	req.Header.Set("X-User-Id", c.userId)
 	if err != nil {
 		return nil, err
 	}

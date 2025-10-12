@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo site</title>
+</head>
+<body>
+    <h1>About</h1>
+    <p>
+        You can call the API at the following endpoints or list all todos at <a href="/list">/list</a>.
+    </p>
+
+    <ul>
+        <li>GET /api/todos - Get all todos</li>
+        <li>GET /api/todos?overdue - Get overdue todos</li>
+        <li>GET /api/todos?status=[Completed|Started|Not Started] - Get todos by status</li>
+        <li>POST /api/todos - Create a new todo (JSON body: {"title": "Your title"}, "due": null)</li>
+        <li>GET /api/todos/{id} - Get a specific todo by ID</li>
+        <li>PUT /api/todos/{id} - Update a specific todo by ID (JSON body: {"title": "New title", "completed": true})</li>
+    </ul>
+</body>
+</html>

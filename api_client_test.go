@@ -9,7 +9,8 @@ import (
 	"grantjames.github.io/todo-app/stores"
 )
 
-var apiServer = NewTodoAPIServer(stores.NewInMemoryTodoStore())
+var actor = stores.NewTodoStoreActor(stores.NewInMemoryTodoStore())
+var apiServer = NewTodoServer(actor)
 
 func FuzzPOSTTodo(f *testing.F) {
 	f.Add(`{"description": "test todo", "due_date": "2023-12-31T23:59:59Z"}`)

@@ -34,26 +34,6 @@ func (t *Todo) SetStatus(s Status) {
 	t.Updated = time.Now()
 }
 
-//
-// Getters to expose todo internals
-//
-
-// func (t *Todo) Description() string {
-// 	return t.Description
-// }
-
-// func (t *Todo) Due() *time.Time {
-// 	return t.Due
-// }
-
-// func (t *Todo) Status() Status {
-// 	return t.Status
-// }
-
-// func (t *Todo) Updated() time.Time {
-// 	return t.Updated
-// }
-
 func (t *Todo) IsOverdue() bool {
 	today := time.Now().Truncate(24 * time.Hour)
 	return t.Due != nil && t.Due.Before(today) && t.Status != Completed

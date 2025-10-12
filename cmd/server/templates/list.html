@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Todos</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  </style>
+</head>
+<body>
+  <h1>Todo List</h1>
+  <ul>
+    {{ range $id, $todo := . }}
+      <li>
+        <p>{{ $id }}</p>
+        <p>{{ $todo.Description }}</p>
+        <p>Status: {{ $todo.Status }}</p>
+        {{ if $todo.Due }} 
+            <p>{{ $todo.Due }}</p>
+        {{ end }}
+        <p>Last updated: {{ $todo.Updated }}</p>
+      </li>
+    {{ end }}
+  </ul>
+</body>
+</html>
