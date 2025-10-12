@@ -29,7 +29,7 @@ func NewTodoServer(actor *stores.TodoStoreActor) *TodoServer {
 	router := http.NewServeMux()
 	router.Handle("/api/todos/", http.HandlerFunc(s.todosHandler))
 
-	static := http.FileServer(http.Dir("./static"))
+	static := http.FileServer(http.Dir("./static/about"))
 	router.Handle("/about/", http.StripPrefix("/about/", static))
 	router.HandleFunc("/list", s.handleListPage)
 
