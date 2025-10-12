@@ -17,7 +17,7 @@ func FuzzPOSTTodo(f *testing.F) {
 	f.Add(`{"description": "another test todo", "due_date": null}`)
 
 	f.Fuzz(func(t *testing.T, todoText string) {
-		req := httptest.NewRequest(http.MethodPost, "/v1/todos/", strings.NewReader(todoText))
+		req := httptest.NewRequest(http.MethodPost, "/api/todos/", strings.NewReader(todoText))
 		req.Header.Set("Content-Type", "application/json")
 
 		w := httptest.NewRecorder()
