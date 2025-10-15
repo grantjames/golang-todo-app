@@ -42,3 +42,12 @@ There are various tests demonstrating various techniques.
 * `api_integrations_test.go` contains an integration test that calls the API, backed via the in-memory store, via the actor. It adds some todos and then verifies a 404 is returned when a non-existant ID is queried.
 * `todo_store_actor_test.go` uses `t.Parallel()` to verify that the actor ensures safe concurrent read and write to the store by concurrently adding todos and then verifying that the number of todos returned are what was added.
 * `server_test.go` tests adding and retrieving todos on the server. To ensure the server is tested in isolation, a "stub" todo store is created that verifies the server calls the expected methods on the store, without depending on a concrete implementation of the store.
+
+### Limitations and future improvements
+
+* As mentioned, the logging is only at the `Info` level. This could be improved to add more logs at the appropriate level.
+* Some errors probably aren't handled as gracefully as they could/should be, and some errors are unhandled completely.
+* There's currently no way to delete todos, but this would be as simple as:
+  * Add a `DELETE /todo/{id}` endpoint and handler to the server
+  * Create a new "delete" message type that the actor can accept the delete request and return a response
+  * Add a delete method on the store, with error handling to notify the caller if the todo to be deleted doesn't exist
