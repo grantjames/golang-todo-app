@@ -28,3 +28,11 @@ The API reads and returns JSON objects, so the CLI uses the `api_client.go` file
 ### Handling concurrency
 
 Initilly, my solution used locks to ensure the stores could be read concurrently, but the final solution uses the Actor pattern. The Actor "owns" access to the store and communication is done with the actor via messages (using channels).
+
+### Tests
+
+There are various tests demonstrating various techniques.
+
+* `api_integrations_test.go` contains an integration test that calls the API, backed via the in-memory store, via the actor. It adds some todos and then verifies a 404 is returned when a non-existant ID is queried.
+* `todo_store_actor_test.go` uses `t.Parallel()` to verify that the actor ensures safe concurrent read and write to the store by concurrently adding todos and then verifying that the number of todos returned are what was added.
+* `server_test.go` tests adding and retrieving todos on the server. To ensure the server is tested in isolation, a "stub" todo store is created that verifies the server calls the expected methods on the store, without depending on a concrete implementation of the store.
