@@ -51,3 +51,4 @@ There are various tests demonstrating various techniques.
   * Add a `DELETE /todo/{id}` endpoint and handler to the server
   * Create a new "delete" message type that the actor can accept the delete request and return a response
   * Add a delete method on the store, with error handling to notify the caller if the todo to be deleted doesn't exist
+* The `Todo` struct properties are all exported. This was to make serialization/deserialization to/from json easier, however it does expose the internals and so a user could update a todo's `Description` without updating the `Updated` property. This can be solved by not exporting the properties and writing getters and setters. However, a custom JSON serializer would then need to be written.
